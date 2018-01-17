@@ -2,6 +2,7 @@ package org.usfirst.frc.team4645.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4645.robot.*;
+import org.usfirst.frc.team4645.robot.subsystems.LimitSwitch;
 
 /**
  *
@@ -24,7 +25,7 @@ public class LimitSwitchSensing extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return LimitSwitch.isSwitchSet();
     }
 
     // Called once after isFinished returns true
