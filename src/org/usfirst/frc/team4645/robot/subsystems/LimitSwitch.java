@@ -1,11 +1,13 @@
 
 
 package org.usfirst.frc.team4645.robot.subsystems;
+import org.usfirst.frc.team4645.robot.RobotMap;
 import org.usfirst.frc.team4645.robot.commands.LimitSwitchSensing;
+
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
@@ -13,9 +15,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class LimitSwitch extends Subsystem 
 
 {
-	//declared limit switch and counter variables
-	static DigitalInput limitSwitch;
+	static DigitalInput limitSwitch = new DigitalInput(RobotMap.limitSwitchPort);
 	static Counter counter1 = new Counter(limitSwitch);
+	static boolean value;
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	
@@ -30,6 +32,17 @@ public class LimitSwitch extends Subsystem
     public void initializeCounter() {
         counter1.reset();
     }	
+    
+    public static boolean switchValue()
+    {	
+    		value = limitSwitch.get();
+    		SmartDashboard.putBoolean("Value", value);
+    	
+    	
+    		return value;
+    	
+    }
+ 
 	
 	
 	public void initDefaultCommand() 

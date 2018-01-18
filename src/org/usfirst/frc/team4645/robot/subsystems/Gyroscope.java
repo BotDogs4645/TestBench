@@ -1,5 +1,5 @@
 package org.usfirst.frc.team4645.robot.subsystems;
-import edu.wpi.first.wpilibj.Gyro;
+//import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
