@@ -3,6 +3,7 @@ package org.usfirst.frc.team4645.robot;
 
 import org.usfirst.frc.team4645.robot.commands.LimitSwitchSensing;
 import org.usfirst.frc.team4645.robot.subsystems.LimitSwitch;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final LimitSwitch LimitSwitchSubsystem = new LimitSwitch();
+	
 	public static OI oi;
 
 	Command autonomousCommand;

@@ -18,6 +18,7 @@ public class LimitSwitch extends Subsystem
 	static DigitalInput limitSwitch = new DigitalInput(RobotMap.limitSwitchPort);
 	static Counter counter1 = new Counter(limitSwitch);
 	static boolean value;
+	static int count=0;
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	
@@ -33,13 +34,13 @@ public class LimitSwitch extends Subsystem
         counter1.reset();
     }	
     
-    public static boolean switchValue()
+    public static void switchValue()
     {	
     		value = limitSwitch.get();
     		SmartDashboard.putBoolean("Value", value);
-    	
-    	
-    		return value;
+    		count++;
+    		SmartDashboard.putNumber("Count", count);
+    
     	
     }
  
