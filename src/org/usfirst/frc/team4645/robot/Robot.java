@@ -7,6 +7,10 @@
 
 package org.usfirst.frc.team4645.robot;
 
+import org.usfirst.frc.team4645.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4645.robot.subsystems.Gyro;
+
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,10 +27,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	private static final String kDefaultAuto = "Default";
 	private static final String kCustomAuto = "My Auto";
+	public static final ExampleSubsystem kExampleSubsystem
+	= new ExampleSubsystem();
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
+	//Creats solenoid object
 	DoubleSolenoid exampleDouble = new DoubleSolenoid(1, 2);
+	//creates a joystick button
 	Joystick exampleStick = new Joystick(1);
+  public static final Gyro gyroscopeSubsystem= new Gyro();
 	
 
 	/**
@@ -80,10 +89,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		//Shoots up
 		if(exampleStick.getRawButton(3))
 		{
 		exampleDouble.set(DoubleSolenoid.Value.kForward);
 		}
+		//shoots down
 		if(exampleStick.getRawButton(4))
 		{
 		exampleDouble.set(DoubleSolenoid.Value.kReverse);
