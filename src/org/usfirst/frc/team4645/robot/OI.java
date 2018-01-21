@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4645.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 //this is a new line
 
@@ -37,4 +38,7 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+	
+	public static Joystick joystick1 = new Joystick(1);
+
 }
