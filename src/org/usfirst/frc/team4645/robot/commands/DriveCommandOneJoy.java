@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveCommandOneJoy extends Command {
+public class DriveCommandOneJoy extends Command 
+{
+	
 
     public DriveCommandOneJoy() {
         // Use requires() here to declare subsystem dependencies
@@ -23,7 +25,9 @@ public class DriveCommandOneJoy extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    		
     	
+    		
     		TankDriveOneJoy.driveWithJoystick();
     }
 
@@ -40,6 +44,7 @@ public class DriveCommandOneJoy extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    		TankDriveOneJoy.stop();
+    	  TankDriveOneJoy.stop();
+    		
     }
 }

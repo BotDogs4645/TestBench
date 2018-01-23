@@ -17,7 +17,7 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	
-	public static int limitSwitchPort = 1;
+	public static int limitSwitchPort = 7;
 	
 	public static int left1 = 1;
 	public static int left2 = 2;
