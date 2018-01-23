@@ -27,6 +27,7 @@ int counter=0;
     	double angle = gyro.getAngle();
     	SmartDashboard.putNumber("Value:",angle);
     	counter++;
+    	SmartDashboard.putNumber("Counter:",counter);
     	return angle;
     	
     }
