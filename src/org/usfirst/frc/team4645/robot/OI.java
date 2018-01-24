@@ -1,10 +1,7 @@
 package org.usfirst.frc.team4645.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-//this is a new line
 
-import org.usfirst.frc.team4645.robot.commands.LimitSwitchSensing;
 
 /**
  * This class is the glue that binds the controls on the physical operator
