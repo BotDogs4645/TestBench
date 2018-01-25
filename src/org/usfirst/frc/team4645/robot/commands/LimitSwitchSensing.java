@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4645.robot.commands;
-
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team4645.robot.*;
+import org.usfirst.frc.team4645.robot.Robot;
 import org.usfirst.frc.team4645.robot.subsystems.LimitSwitch;
 
 /**
@@ -9,23 +8,26 @@ import org.usfirst.frc.team4645.robot.subsystems.LimitSwitch;
  */
 public class LimitSwitchSensing extends Command {
 
-    public LimitSwitchSensing() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public LimitSwitchSensing() 
+    {
+  
 		requires(Robot.LimitSwitchSubsystem);    	
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
+    protected void initialize() 
+    {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
+    protected void execute() 
+    {
     		LimitSwitch.switchValue();
     }
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
+    //since it always returns false, it is always running
+    protected boolean isFinished() 
+    {
         return false;
     }
 
