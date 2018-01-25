@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4645.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4645.robot.Robot;
-import org.usfirst.frc.team4645.robot.subsystems.LimitSwitch;
 
 /**
  *
@@ -22,7 +21,7 @@ public class LimitSwitchSensing extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-    		LimitSwitch.switchValue();
+    		Robot.LimitSwitchSubsystem.switchValue();
     }
 
     //since it always returns false, it is always running

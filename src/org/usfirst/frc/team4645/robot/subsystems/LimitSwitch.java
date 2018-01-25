@@ -13,12 +13,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class LimitSwitch extends Subsystem 
 
 {
-	private static DigitalInput limitSwitch = new DigitalInput(RobotMap.limitSwitchPort);
-	private static boolean value;
-	private static int count=0;
+	private DigitalInput limitSwitch = new DigitalInput(RobotMap.limitSwitchPort);
+	private boolean value;
+	private int count=0;
 
  
-    public static void switchValue()
+    public void switchValue()
     {	
     		value = limitSwitch.get();
     		SmartDashboard.putBoolean("Value", value);
