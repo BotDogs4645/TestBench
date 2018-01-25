@@ -25,5 +25,11 @@ public class IntakeSystem extends Subsystem {
     	intakeWheel2.set(-1);
     	
     }
+    public void intakeOut()
+    {
+    	intakeWheel1.set(-1);
+    	intakeWheel2.set(1);
+    	
+    }
 }
 
