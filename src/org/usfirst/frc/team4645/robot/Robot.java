@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team4645.robot;
 
+import org.usfirst.frc.team4645.robot.RobotMap;
+
 import org.usfirst.frc.team4645.robot.commands.LimitSwitchSensing;
 import org.usfirst.frc.team4645.robot.subsystems.LimitSwitch;
 import org.usfirst.frc.team4645.robot.subsystems.TankDriveOneJoy;
@@ -36,7 +38,7 @@ public class Robot extends IterativeRobot {
 	private String m_autoSelected;
 	
 	DoubleSolenoid exampleDouble = new DoubleSolenoid(1, 2);
-	Joystick exampleStick = new Joystick(1);
+	Joystick exampleStick = OI.joystick1;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
