@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4645.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4645.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team4645.robot.subsystems.Gyro;
+import org.usfirst.frc.team4645.robot.subsystems.IntakeSystem;
 
 
 /**
@@ -29,6 +30,10 @@ public class Robot extends TimedRobot {
 	public static final ExampleSubsystem kExampleSubsystem
 			= new ExampleSubsystem();
 	public static final Gyro gyroscopeSubsystem= new Gyro();
+	
+	public static final IntakeSystem kIntakeSystem= new IntakeSystem();
+
+	
 	public static OI m_oi;
 
 	Command m_autonomousCommand;

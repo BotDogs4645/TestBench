@@ -1,17 +1,18 @@
 package org.usfirst.frc.team4645.robot.commands;
 
-import org.usfirst.frc.team4645.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team4645.robot.Robot;
+
 
 /**
  *
  */
-public class IntakeCommand extends Command {
+public class OuttakeCommand extends Command {
 
-    public IntakeCommand() {
+    public OuttakeCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.kIntakeSystem);
+    	requires(Robot.kIntakeSystem);
     }
 
     // Called just before this Command runs the first time
@@ -20,7 +21,7 @@ public class IntakeCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot. kIntakeSystem.intakeIn();
+    	Robot. kIntakeSystem.intakeOut();
     }
 
     // Make this return true when this Command no longer needs to run execute()

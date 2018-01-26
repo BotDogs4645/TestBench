@@ -7,7 +7,8 @@
 
 package org.usfirst.frc.team4645.robot;
 
-import org.usfirst.frc.team4645.robot.subsystems.IntakeSystem;
+import org.usfirst.frc.team4645.robot.commands.IntakeCommand;
+import org.usfirst.frc.team4645.robot.commands.OuttakeCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -46,11 +47,16 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	Joystick intakeButton = new Joystick(1);
-	Button buttonIntake = new JoystickButton(intakeButton,1);
+	Button buttonIntake = new JoystickButton(intakeButton,5);
+	
+	Joystick outtakeButton = new Joystick(1);
+	Button buttonOuttake = new JoystickButton(outtakeButton,6);
 	
 	public OI() 
 	{
-	//buttonIntake.whileHeld(new IntakeSystem());
+	buttonIntake.whenPressed(new IntakeCommand());
+	
+	buttonOuttake.whenPressed(new OuttakeCommand());
 	
 	}
 }
