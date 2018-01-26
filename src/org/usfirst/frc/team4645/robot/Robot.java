@@ -5,7 +5,9 @@ import org.usfirst.frc.team4645.robot.commands.LimitSwitchSensing;
 import org.usfirst.frc.team4645.robot.subsystems.LimitSwitch;
 import org.usfirst.frc.team4645.robot.subsystems.TankDriveOneJoy;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -29,7 +31,12 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-
+	private static final String kDefaultAuto = "Default";
+	private static final String kCustomAuto = "My Auto";
+	private String m_autoSelected;
+	
+	DoubleSolenoid exampleDouble = new DoubleSolenoid(1, 2);
+	Joystick exampleStick = new Joystick(1);
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -37,7 +44,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Default Auto", new LimitSwitchSensing());
+		//chooser.addDefault("Default Auto", new LimitSwitchSensing());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
@@ -108,6 +115,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		if(exampleStick.getRawButton(3))
+		{
+		exampleDouble.set(DoubleSolenoid.Value.kForward);
+		}
+		if(exampleStick.getRawButton(4))
+		{
+		exampleDouble.set(DoubleSolenoid.Value.kReverse);
+		}
 	}
 
 	/**
