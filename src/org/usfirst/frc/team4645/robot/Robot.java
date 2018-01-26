@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4645.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -27,6 +29,7 @@ public class Robot extends IterativeRobot {
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 	DoubleSolenoid exampleDouble = new DoubleSolenoid(1, 2);
 	Joystick exampleStick = new Joystick(1);
+	WPI_TalonSRX motor1 = new WPI_TalonSRX(1);
 	
 
 	/**
@@ -79,7 +82,8 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control.
 	 */
 	@Override
-	public void teleopPeriodic() {
+	public void teleopPeriodic() 
+	{
 		if(exampleStick.getRawButton(3))
 		{
 		exampleDouble.set(DoubleSolenoid.Value.kForward);
@@ -88,6 +92,7 @@ public class Robot extends IterativeRobot {
 		{
 		exampleDouble.set(DoubleSolenoid.Value.kReverse);
 		}
+		motor1.set(.7);
 	}
 
 	/**
