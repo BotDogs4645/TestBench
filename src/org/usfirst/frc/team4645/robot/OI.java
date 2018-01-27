@@ -7,8 +7,9 @@
 
 package org.usfirst.frc.team4645.robot;
 
+import org.usfirst.frc.team4645.robot.commands.ClimbCommandDown;
+import org.usfirst.frc.team4645.robot.commands.ClimbCommandUp;
 import org.usfirst.frc.team4645.robot.commands.IntakeCommand;
-import org.usfirst.frc.team4645.robot.commands.IntakeRest;
 import org.usfirst.frc.team4645.robot.commands.OuttakeCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -53,20 +54,25 @@ public class OI
 	Joystick joystick1 = new Joystick(1);
 	
 	Button buttonIntake = new JoystickButton(joystick1,5);
-	
-
 	Button buttonOuttake = new JoystickButton(joystick1,6);
+	Button buttonClimbUp = new JoystickButton(joystick1,3);
+	Button buttonClimbDown = new JoystickButton(joystick1,4);
+
 	
 	public OI() 
 	
 	{
-	buttonIntake.whenPressed(new IntakeCommand());
+	buttonIntake.whileHeld(new IntakeCommand());
+	buttonOuttake.whileHeld(new OuttakeCommand());
 	
-	buttonOuttake.whenPressed(new OuttakeCommand());
 	
-	buttonIntake.whenReleased(new IntakeRest());
 	
-	buttonOuttake.whenReleased(new IntakeRest());
+	buttonClimbUp.whileHeld(new ClimbCommandUp());
+	buttonClimbDown.whileHeld(new ClimbCommandDown());
+	
+
+	
+	
 	
 	}
 }

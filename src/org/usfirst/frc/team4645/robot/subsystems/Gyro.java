@@ -17,7 +17,8 @@ int counter=0;
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    public void initDefaultCommand() {
+    public void initDefaultCommand() 
+    {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new GyroCommand());
@@ -31,7 +32,7 @@ int counter=0;
     	return angle;
     	
     }
-    public void resetGyro() 
+    public void resetGyro()  
     {
 	gyro.reset();
     }

@@ -1,30 +1,34 @@
 package org.usfirst.frc.team4645.robot.commands;
 
+
 import org.usfirst.frc.team4645.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+
+
 /**
  *
  */
-public class IntakeCommand extends Command
-{
+public class ClimbCommandUp extends Command {
 
-    public IntakeCommand() {
+    public ClimbCommandUp() 
+    {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.kIntakeSystem);
+        // eg. requires(chassis);
+    	requires(Robot.climbingSystem);
     }
 
     // Called just before this Command runs the first time
-    protected void initialize()
+    protected void initialize() 
     {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() 
+    protected void execute()
     {
-    	//calls method to intake
-    	Robot.kIntakeSystem.intakeIn();
+    	Robot.climbingSystem.climbUp();
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,7 +46,7 @@ public class IntakeCommand extends Command
     // subsystems is scheduled to run
     protected void interrupted()
     {
-    	Robot.kIntakeSystem.intakeRest();
+    	Robot.climbingSystem.climbRest();
 
     }
 }

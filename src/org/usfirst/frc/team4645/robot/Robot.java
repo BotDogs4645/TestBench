@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4645.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4645.robot.subsystems.ClimbingSubsystem;
 import org.usfirst.frc.team4645.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team4645.robot.subsystems.Gyro;
 import org.usfirst.frc.team4645.robot.subsystems.IntakeSystem;
@@ -35,6 +36,8 @@ public class Robot extends TimedRobot {
 	
 	//Creates intake 
 	public static final IntakeSystem kIntakeSystem= new IntakeSystem();
+	public static final ClimbingSubsystem climbingSystem= new ClimbingSubsystem();
+
 
 	
 	public static OI m_oi;

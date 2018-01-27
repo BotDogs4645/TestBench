@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class IntakeSystem extends Subsystem {
 	//Creates motors 2018
-	private static WPI_TalonSRX motorIntake1 = new WPI_TalonSRX(10);
-	private static WPI_TalonSRX motorIntake2 = new WPI_TalonSRX(11);
+	private WPI_TalonSRX motorIntake1 = new WPI_TalonSRX(10);
+	private WPI_TalonSRX motorIntake2 = new WPI_TalonSRX(11);
 
 	
     // Put methods for controlling this subsystem
