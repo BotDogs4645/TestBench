@@ -9,8 +9,9 @@ import edu.wpi.first.wpilibj.Talon;
  *
  */
 public class IntakeSystem extends Subsystem {
-	private static WPI_TalonSRX motorIntake1 = new WPI_TalonSRX(1);
-	private static WPI_TalonSRX motorIntake2 = new WPI_TalonSRX(2);
+	//Creates motors 2018
+	private static WPI_TalonSRX motorIntake1 = new WPI_TalonSRX(10);
+	private static WPI_TalonSRX motorIntake2 = new WPI_TalonSRX(11);
 
 	
     // Put methods for controlling this subsystem
@@ -20,13 +21,14 @@ public class IntakeSystem extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    //intakes cube in
     public void intakeIn()
     {
     	motorIntake1.set(1);
     	motorIntake2.set(-1);
     	
     }
-    
+  //intakes cube out
     public void intakeOut()
     {
     	motorIntake1.set(-1);
@@ -34,7 +36,7 @@ public class IntakeSystem extends Subsystem {
     	
     }
     
-    
+    //Intake does not move
     public void intakeRest()
     {
     	motorIntake1.set(0);

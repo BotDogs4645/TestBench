@@ -29,8 +29,11 @@ import org.usfirst.frc.team4645.robot.subsystems.IntakeSystem;
 public class Robot extends TimedRobot {
 	public static final ExampleSubsystem kExampleSubsystem
 			= new ExampleSubsystem();
+	
+	
 	public static final Gyro gyroscopeSubsystem= new Gyro();
 	
+	//Creates intake 
 	public static final IntakeSystem kIntakeSystem= new IntakeSystem();
 
 	
@@ -45,7 +48,8 @@ public class Robot extends TimedRobot {
 	 * used for any initialization code.
 	 */
 	@Override
-	public void robotInit() {
+	public void robotInit() 
+	{
 		m_oi = new OI();
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -59,7 +63,8 @@ public class Robot extends TimedRobot {
 	 * the robot is disabled.
 	 */
 	@Override
-	public void disabledInit() {
+	public void disabledInit()
+	{
 
 	}
 
@@ -80,7 +85,8 @@ public class Robot extends TimedRobot {
 	 * to the switch structure below with additional strings & commands.
 	 */
 	@Override
-	public void autonomousInit() {
+	public void autonomousInit()
+	{
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
@@ -91,7 +97,8 @@ public class Robot extends TimedRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
+		if (m_autonomousCommand != null) 
+		{
 			m_autonomousCommand.start();
 		}
 	}
@@ -105,12 +112,14 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void teleopInit() {
+	public void teleopInit() 
+	{
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
+		if (m_autonomousCommand != null) 
+		{
 			m_autonomousCommand.cancel();
 		}
 	}
@@ -119,7 +128,8 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during operator control.
 	 */
 	@Override
-	public void teleopPeriodic() {
+	public void teleopPeriodic() 
+	{
 		Scheduler.getInstance().run();
 	}
 
@@ -127,6 +137,7 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during test mode.
 	 */
 	@Override
-	public void testPeriodic() {
+	public void testPeriodic()
+	{
 	}
 }
