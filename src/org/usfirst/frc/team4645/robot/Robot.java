@@ -9,6 +9,9 @@ package org.usfirst.frc.team4645.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -27,9 +30,9 @@ public class Robot extends IterativeRobot {
 	private static final String kCustomAuto = "My Auto";
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
-	DoubleSolenoid exampleDouble = new DoubleSolenoid(1, 2);
-	Joystick exampleStick = new Joystick(1);
+	
 	WPI_TalonSRX motor1 = new WPI_TalonSRX(1);
+	NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 	
 
 	/**
@@ -84,15 +87,28 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() 
 	{
-		if(exampleStick.getRawButton(3))
-		{
-		exampleDouble.set(DoubleSolenoid.Value.kForward);
-		}
-		if(exampleStick.getRawButton(4))
-		{
-		exampleDouble.set(DoubleSolenoid.Value.kReverse);
-		}
-		motor1.set(.7);
+		
+		NetworkTableEntry tx = table.getEntry("tx");
+		NetworkTableEntry ty = table.getEntry("ty");
+		NetworkTableEntry ta = table.getEntry("ta");
+		NetworkTableEntry tv = table.getEntry("tv");
+		NetworkTableEntry ts = table.getEntry("ts");
+		NetworkTableEntry tl = table.getEntry("tl");
+		
+		double x = tx.getDouble(0);
+		double y = ty.getDouble(0);
+		double area = ta.getDouble(0);
+		double v = tv.getDouble(0);
+		double s = ts.getDouble(0);
+		double l = tl.getDouble(0);
+		
+		SmartDashboard.putNumber("Whether the limelight has any valid targets (0 or 1)",v);
+		SmartDashboard.putNumber("Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)",x);
+		SmartDashboard.putNumber("Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)",y);
+		SmartDashboard.putNumber("Target Area (0% of image to 100% of image)",area);
+		SmartDashboard.putNumber("Skew or rotation (-90 degrees to 0 degrees)",s);
+		SmartDashboard.putNumber("The pipelines latency contribution (ms) Add at least 11ms for image capture latency.",l);
+		
 	}
 
 	/**
