@@ -3,15 +3,12 @@ import org.usfirst.frc.team4645.robot.OI;
 import org.usfirst.frc.team4645.robot.RobotMap;
 import org.usfirst.frc.team4645.robot.commands.DriveCommandOneJoy;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
-/**
- *
-
- */
 
 public class TankDriveOneJoy extends Subsystem 
 {
@@ -25,6 +22,9 @@ public class TankDriveOneJoy extends Subsystem
 	public WPI_TalonSRX motorR3 = new WPI_TalonSRX(RobotMap.right3);
 	
 	DifferentialDrive robotDrive = new DifferentialDrive(motorL1, motorR1);
+	
+	Encoder rightEncoder = new Encoder(RobotMap.rightEncoderA, RobotMap.rightEncoderB, false, Encoder.EncodingType.k4X);
+	Encoder leftEncoder = new Encoder(RobotMap.leftEncoderA, RobotMap.leftEncoderB, false, Encoder.EncodingType.k4X);
 
     public void initDefaultCommand() 
     {
@@ -34,7 +34,7 @@ public class TankDriveOneJoy extends Subsystem
     
     public void init()
     {
-    	//motors connected to "middle" gear are slaved on both sides
+    	//motors on "middle" gear are slaved and inverted with motor on top gear
 		motorL2.follow(motorL1);
 		motorL3.follow(motorL1);
 		motorL2.setInverted(true);
@@ -46,24 +46,26 @@ public class TankDriveOneJoy extends Subsystem
 		motorR2.setInverted(true);
 		motorR3.setInverted(true);
 		
+		rightEncoder.reset();
+		leftEncoder.reset();
+		
     	
     }
     
     public void driveWithJoystick()
     {
 		double forward = OI.joystick1.getY();
-		
-		/* sign this so right is positive. */
 		double turn = OI.joystick1.getZ();
-		
-		
-		
+
 		/* deadband */
-		if (Math.abs(forward) < 0.10) {
+		if (Math.abs(forward) < 0.10) 
+		{
 			/* within 10% joystick, make it zero */
 			forward = 0;
 		}
-		if (Math.abs(turn) < 0.10) {
+		
+		if (Math.abs(turn) < 0.10) 
+		{
 			/* within 10% joystick, make it zero */
 			turn = 0;
 		}
@@ -72,34 +74,16 @@ public class TankDriveOneJoy extends Subsystem
 		SmartDashboard.putNumber("JoyY:",  forward);
 		SmartDashboard.putNumber("Turn", turn);
 
-//what does forward do? what does turn do?
 		robotDrive.arcadeDrive(forward, turn);		
 	}
     	
     	
-    /*
-    	//sets both motor speeds with joystick Y-values, with left side going clockwise, right side going counter-clockwise
-    		rightSide.set(-OI.joystick1.getY());  		
-    		leftSide.set( OI.joystick1.getY());
-    		
-    	//As joysticks turn, so does drive train
-		rightSide.set(OI.joystick1.getZ());
-		leftSide.set(OI.joystick1.getZ()); 
-		
-		SmartDashboard.putNumber("right side", rightSide.get());
-		SmartDashboard.putNumber("left side", leftSide.get());
-
-    	  
-    }
-    */
     public void stop()
     {
     	
 		motorL1.set(0);
-	
 		motorR1.set(0);
 
 	}
     
 }
-
