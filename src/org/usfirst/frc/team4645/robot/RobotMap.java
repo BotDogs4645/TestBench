@@ -19,6 +19,11 @@ public class RobotMap {
 	
 	public static int limitSwitchPort = 7;
 	
-	
+	public static int left1 = 1;
+	public static int left2 = 2;
+	public static int left3 = 3;
+	public static int right1 = 4;
+	public static int right2 = 5;
+	public static int right3 = 6;
 	
 }

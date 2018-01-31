@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final LimitSwitch LimitSwitchSubsystem = new LimitSwitch();
-	
+	public static final TankDriveOneJoy tankDriveSubsystem = new TankDriveOneJoy();
 	
 	public static OI oi;
 
