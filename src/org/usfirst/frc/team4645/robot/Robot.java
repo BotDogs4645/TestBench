@@ -2,6 +2,9 @@
 package org.usfirst.frc.team4645.robot;
 
 import org.usfirst.frc.team4645.robot.commands.LimitSwitchSensing;
+
+import org.usfirst.frc.team4645.robot.subsystems.ColorSensor;
+import org.usfirst.frc.team4645.robot.subsystems.DistanceSensor;
 import org.usfirst.frc.team4645.robot.subsystems.LimitSwitch;
 import org.usfirst.frc.team4645.robot.subsystems.TankDriveOneJoy;
 
@@ -11,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.wpilibj.command.Subsystem; 
+import edu.wpi.first.wpilibj.command.Subsystem; 
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,7 +27,11 @@ public class Robot extends IterativeRobot {
 
 	public static final LimitSwitch LimitSwitchSubsystem = new LimitSwitch();
 	public static final TankDriveOneJoy tankDriveSubsystem = new TankDriveOneJoy();
-	
+	//Create the distance sensor subsystem
+	public static final DistanceSensor kDistanceSensor = new DistanceSensor();
+		
+	//Create the color sensor subsystem
+	public static final ColorSensor kColorSensor = new ColorSensor();
 	public static OI oi;
 
 	Command autonomousCommand;
