@@ -26,9 +26,9 @@ public class RobotMap {
 	public static int right2 = 5;
 	public static int right3 = 6;
 	
-	public static int rightEncoderA = 8;
+	/*public static int rightEncoderA = 8;
 	public static int rightEncoderB = 9;
-	public static int leftEncoderA = 10;
-	public static int leftEncoderB = 11;
+	public static int leftEncoderA = 6;
+	public static int leftEncoderB = 11;*/
 	
 }

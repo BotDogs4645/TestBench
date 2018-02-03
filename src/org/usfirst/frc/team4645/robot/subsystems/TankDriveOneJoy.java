@@ -23,8 +23,8 @@ public class TankDriveOneJoy extends Subsystem
 	
 	DifferentialDrive robotDrive = new DifferentialDrive(motorL1, motorR1);
 	
-	Encoder rightEncoder = new Encoder(RobotMap.rightEncoderA, RobotMap.rightEncoderB, false, Encoder.EncodingType.k4X);
-	Encoder leftEncoder = new Encoder(RobotMap.leftEncoderA, RobotMap.leftEncoderB, false, Encoder.EncodingType.k4X);
+	/*Encoder rightEncoder = new Encoder(RobotMap.rightEncoderA, RobotMap.rightEncoderB, false, Encoder.EncodingType.k4X);
+	Encoder leftEncoder = new Encoder(RobotMap.leftEncoderA, RobotMap.leftEncoderB, false, Encoder.EncodingType.k4X);*/
 
     public void initDefaultCommand() 
     {
@@ -46,8 +46,8 @@ public class TankDriveOneJoy extends Subsystem
 		motorR2.setInverted(true);
 		motorR3.setInverted(true);
 		
-		rightEncoder.reset();
-		leftEncoder.reset();
+		/*rightEncoder.reset();
+		leftEncoder.reset();*/
 		
     	
     }
