@@ -109,8 +109,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		/*Scheduler.getInstance().run();
-		if(exampleStick.getRawButton(3))
+		Scheduler.getInstance().run();
+		/*if(exampleStick.getRawButton(3))
 		{
 		exampleDouble.set(DoubleSolenoid.Value.kForward);
 		}
