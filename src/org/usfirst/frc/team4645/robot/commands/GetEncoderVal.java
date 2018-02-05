@@ -8,34 +8,39 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class GetEncoderVal extends Command {
+public class GetEncoderVal extends Command 
+{
 
 	double distance;
 	
-    public GetEncoderVal(double pDistance) {
-        // Use requires() here to declare subsystem dependencies
+    public GetEncoderVal(double pDistance) 
+    {
+       
     	    requires(Robot.kMotorTest);
     	    distance = pDistance;
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
+    //
+    protected void initialize() 
+    {
 		Robot.kMotorTest.initMotor();
-		Robot.kMotorTest.driveForward(0.3);
+		//Robot.kMotorTest.driveForward(0.1);
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
+    protected void execute() 
+    {
     //Robot.kMotorTest.turnMotor();
-    	//Robot.kMotorTest.driveForward(0.1);
-    	SmartDashboard.putNumber("encoder", Robot.kMotorTest.getPosition());
+    		Robot.kMotorTest.driveForward(0.3);
+    		SmartDashboard.putNumber("encoder position", Robot.kMotorTest.getPosition());
     		
     }
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        //return (Robot.kMotorTest.setDistance(14));
-    	return (Robot.kMotorTest.getPosition() >= distance);
+   
+    protected boolean isFinished() 
+    {    
+    		return (Robot.kMotorTest.getPosition() >= distance);
     }
 
     // Called once after isFinished returns true
@@ -45,7 +50,8 @@ public class GetEncoderVal extends Command {
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    protected void interrupted() {
+    protected void interrupted() 
+    {
     	
     }
     
