@@ -19,7 +19,7 @@ public class DriveCommandOneJoy extends Command
 
     protected void execute() 
     {	
-    		Robot.tankDriveSubsystem.driveWithJoystick();
+    		//Robot.tankDriveSubsystem.driveWithJoystick();
     }
 
     protected boolean isFinished() 
@@ -29,7 +29,6 @@ public class DriveCommandOneJoy extends Command
 
     protected void end() 
     {
-    	
     }
 
     protected void interrupted() 

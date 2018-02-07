@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4645.robot;
-import org.usfirst.frc.team4645.robot.commands.GetEncoderVal;
-import org.usfirst.frc.team4645.robot.subsystems.EncoderTest;
+import org.usfirst.frc.team4645.robot.commands.AutonomousTest;
+import org.usfirst.frc.team4645.robot.commands.MoveWithEncoders;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -16,11 +16,14 @@ public class OI
 	
 	public static Joystick joystick1 = new Joystick(0);
 	
+	
 	Button encoderButton = new JoystickButton(joystick1, 5);
+	
+	
 	
 	public OI()
 	{
-	encoderButton.whenPressed(new GetEncoderVal(400));
+		encoderButton.whenPressed(new AutonomousTest());
 	
 	}
 

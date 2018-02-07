@@ -2,9 +2,10 @@ package org.usfirst.frc.team4645.robot.subsystems;
 import org.usfirst.frc.team4645.robot.OI;
 import org.usfirst.frc.team4645.robot.RobotMap;
 import org.usfirst.frc.team4645.robot.commands.DriveCommandOneJoy;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.Encoder;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,9 +24,6 @@ public class TankDriveOneJoy extends Subsystem
 	
 	DifferentialDrive robotDrive = new DifferentialDrive(motorL1, motorR1);
 	
-	/*Encoder rightEncoder = new Encoder(RobotMap.rightEncoderA, RobotMap.rightEncoderB, false, Encoder.EncodingType.k4X);
-	Encoder leftEncoder = new Encoder(RobotMap.leftEncoderA, RobotMap.leftEncoderB, false, Encoder.EncodingType.k4X);*/
-
     public void initDefaultCommand() 
     {
 
@@ -46,11 +44,16 @@ public class TankDriveOneJoy extends Subsystem
 		motorR2.setInverted(true);
 		motorR3.setInverted(true);
 		
-		/*rightEncoder.reset();
-		leftEncoder.reset();*/
+		//Sets the period of the given status frame to 1 ms and the timeout value to 10ms 
+		motorR1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);		
+		motorL1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
 		
-    	
+		//selects the optical encoder, sets it as a closed loop, and sets timeout to 10ms
+		motorR1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);	
+		motorL1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10); 		
+		
     }
+    
     
     public void driveWithJoystick()
     {
@@ -76,14 +79,31 @@ public class TankDriveOneJoy extends Subsystem
 
 		robotDrive.arcadeDrive(forward, turn);		
 	}
-    	
-    	
+    
+	public double getLeftPosition() 
+	{
+		//System.out.print(motorL1.getSelectedSensorPosition(0));
+		return motorL1.getSelectedSensorPosition(0);	
+	}
+
+	//called in command
+	public void driveForward(double speed)
+	{
+		motorL1.set(speed);
+		motorR1.set(speed);	
+	}
+	
+	public boolean setDistance(double distance)
+	{
+		return true;
+	}	
+	
     public void stop()
     {
-    	
 		motorL1.set(0);
 		motorR1.set(0);
-
 	}
+    
+   
     
 }

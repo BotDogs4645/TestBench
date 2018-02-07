@@ -8,44 +8,42 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class GetEncoderVal extends Command 
+public class MoveWithEncoders extends Command 
 {
 
 	double distance;
 	
-    public GetEncoderVal(double pDistance) 
+    public MoveWithEncoders(double pDistance) 
     {
-       
-    	    requires(Robot.kMotorTest);
+    	    requires(Robot.tankDriveSubsystem);
     	    distance = pDistance;
     }
 
     // Called just before this Command runs the first time
-    //
     protected void initialize() 
     {
-		Robot.kMotorTest.initMotor();
-		//Robot.kMotorTest.driveForward(0.1);
+    		Robot.tankDriveSubsystem.init();
+		
+	
     }
 
     // Called repeatedly when this Command is scheduled to run
+    //runs motors and returns encoder values
     protected void execute() 
     {
-    //Robot.kMotorTest.turnMotor();
-    		Robot.kMotorTest.driveForward(0.3);
-    		SmartDashboard.putNumber("encoder position", Robot.kMotorTest.getPosition());
-    		
+    		Robot.tankDriveSubsystem.driveForward(0.3);
+    		SmartDashboard.putNumber("encoder position", Robot.tankDriveSubsystem.getLeftPosition());	
     }
 
    
     protected boolean isFinished() 
     {    
-    		return (Robot.kMotorTest.getPosition() >= distance);
+    		return (Robot.tankDriveSubsystem.getLeftPosition() >= distance);
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    		Robot.kMotorTest.stopMotor();
+    		Robot.tankDriveSubsystem.stop();
     }
 
     // Called when another command which requires one or more of the same
