@@ -2,6 +2,8 @@ package org.usfirst.frc.team4645.robot.commands;
 
 import org.usfirst.frc.team4645.robot.Robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -32,13 +34,15 @@ public class MoveWithEncoders extends Command
     protected void execute() 
     {
     		Robot.tankDriveSubsystem.driveForward(0.3);
-    		SmartDashboard.putNumber("encoder position", Robot.tankDriveSubsystem.getLeftPosition());	
+    	
+    		SmartDashboard.putNumber("encoder position", Robot.tankDriveSubsystem.returnPIDInput());	
     }
 
    
     protected boolean isFinished() 
     {    
-    		return (Robot.tankDriveSubsystem.getLeftPosition() >= distance);
+    		return (Robot.tankDriveSubsystem.returnPIDInput() >= distance);
+    		
     }
 
     // Called once after isFinished returns true

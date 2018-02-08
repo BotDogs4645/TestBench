@@ -6,12 +6,14 @@ import org.usfirst.frc.team4645.robot.commands.DriveCommandOneJoy;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
-public class TankDriveOneJoy extends Subsystem 
+public class TankDriveOneJoy extends PIDSubsystem 
 {
 	
 	public WPI_TalonSRX motorL1 = new WPI_TalonSRX(RobotMap.left1);
@@ -24,10 +26,24 @@ public class TankDriveOneJoy extends Subsystem
 	
 	DifferentialDrive robotDrive = new DifferentialDrive(motorL1, motorR1);
 	
+
+
+	private static double p = 1.0;
+	private static double i = 0.0;
+	private static double d = 0.0;
+	private static double f = 0.0;
+	
     public void initDefaultCommand() 
     {
 
     		setDefaultCommand(new DriveCommandOneJoy());
+    }
+    
+    //initializes PID controls
+    public TankDriveOneJoy()
+    {
+    		super("drivetrain", p, i, d, f);
+    	
     }
     
     public void init()
@@ -52,6 +68,9 @@ public class TankDriveOneJoy extends Subsystem
 		motorR1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);	
 		motorL1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10); 		
 		
+		double circumference = 0.3192; //m
+		double pulsesPerRevolution = 400; //counts
+		double countsPerMeter = circumference/ pulsesPerRevolution;	
     }
     
     
@@ -104,6 +123,28 @@ public class TankDriveOneJoy extends Subsystem
 		motorR1.set(0);
 	}
     
-   
+    //returns encoder value
+	@Override
+	public double returnPIDInput() {
+		// TODO Auto-generated method stub
+		return motorL1.getSelectedSensorPosition(0);
+	}
+
+	@Override
+	protected void usePIDOutput(double output) {
+		// TODO Auto-generated method stub
+		//motorL1.set(output);
+		//motorR1.set(output);
+		
+		
+		
+	}
+	
+	public void setMotorSpeeds()
+	{
+		
+	}
+    
+	
     
 }
