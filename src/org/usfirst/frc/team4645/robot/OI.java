@@ -7,8 +7,8 @@
 
 package org.usfirst.frc.team4645.robot;
 
-import org.usfirst.frc.team4645.robot.commands.ClimbCommandDown;
-import org.usfirst.frc.team4645.robot.commands.ClimbCommandUp;
+import org.usfirst.frc.team4645.robot.commands.WinchCommandDown;
+import org.usfirst.frc.team4645.robot.commands.WinchCommandUp;
 import org.usfirst.frc.team4645.robot.commands.IntakeCommand;
 import org.usfirst.frc.team4645.robot.commands.OuttakeCommand;
 
@@ -67,8 +67,8 @@ public class OI
 	
 	
 	
-	buttonClimbUp.whileHeld(new ClimbCommandUp());
-	buttonClimbDown.whileHeld(new ClimbCommandDown());
+	buttonClimbUp.whileHeld(new WinchCommandUp());
+	buttonClimbDown.whileHeld(new WinchCommandDown());
 	
 
 	

@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class ClimbingSubsystem extends Subsystem {
+public class WinchSubsystem extends Subsystem {
 	private  WPI_TalonSRX motorClimb1 = new WPI_TalonSRX(1);
 	private WPI_TalonSRX motorClimb2 = new WPI_TalonSRX(2);
 
