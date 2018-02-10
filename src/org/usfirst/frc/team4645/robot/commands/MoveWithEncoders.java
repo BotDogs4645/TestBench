@@ -35,13 +35,13 @@ public class MoveWithEncoders extends Command
     {
     		Robot.tankDriveSubsystem.driveForward(0.3);
     	
-    		SmartDashboard.putNumber("encoder position", Robot.tankDriveSubsystem.returnPIDInput());	
+    		SmartDashboard.putNumber("encoder position", Robot.tankDriveSubsystem.getLeftPosition());	
     }
 
    
     protected boolean isFinished() 
     {    
-    		return (Robot.tankDriveSubsystem.returnPIDInput() >= distance);
+    		return (Robot.tankDriveSubsystem.getLeftPosition() >= distance);
     		
     }
 

@@ -26,26 +26,20 @@ public class TankDriveOneJoy extends PIDSubsystem
 	
 	DifferentialDrive robotDrive = new DifferentialDrive(motorL1, motorR1);
 	
+	public TankDriveOneJoy()
+	{
+		super("drivetrain", 0.0, 0.0, 0.0);
+		setAbsoluteTolerance(0.05);
+		
+	}
 
-
-	private static double p = 1.0;
-	private static double i = 0.0;
-	private static double d = 0.0;
-	private static double f = 0.0;
 	
     public void initDefaultCommand() 
     {
 
     		setDefaultCommand(new DriveCommandOneJoy());
     }
-    
-    //initializes PID controls
-    public TankDriveOneJoy()
-    {
-    		super("drivetrain", p, i, d, f);
-    	
-    }
-    
+      
     public void init()
     {
     	//motors on "middle" gear are slaved and inverted with motor on top gear
@@ -71,8 +65,11 @@ public class TankDriveOneJoy extends PIDSubsystem
 		double circumference = 0.3192; //m
 		double pulsesPerRevolution = 400; //counts
 		double countsPerMeter = circumference/ pulsesPerRevolution;	
+		
+
     }
     
+  
     
     public void driveWithJoystick()
     {
@@ -123,25 +120,23 @@ public class TankDriveOneJoy extends PIDSubsystem
 		motorR1.set(0);
 	}
     
-    //returns encoder value
+	public void setMotorSpeeds()
+	{	
+	}
+
+
 	@Override
-	public double returnPIDInput() {
+	protected double returnPIDInput() {
 		// TODO Auto-generated method stub
 		return motorL1.getSelectedSensorPosition(0);
 	}
 
+
 	@Override
 	protected void usePIDOutput(double output) {
 		// TODO Auto-generated method stub
-		//motorL1.set(output);
-		//motorR1.set(output);
-		
-		
-		
-	}
-	
-	public void setMotorSpeeds()
-	{
+		motorL1.pidWrite(output);
+		motorR1.pidWrite(output);
 		
 	}
     
