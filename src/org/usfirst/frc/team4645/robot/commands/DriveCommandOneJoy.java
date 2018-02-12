@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4645.robot.commands;
 import org.usfirst.frc.team4645.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class DriveCommandOneJoy extends Command 
@@ -22,7 +21,7 @@ public class DriveCommandOneJoy extends Command
     {	
     		
     		Robot.tankDriveSubsystem.driveWithJoystick();
-    		SmartDashboard.putNumber("Encoder position", Robot.tankDriveSubsystem.getLeftPosition());
+    		//SmartDashboard.putNumber("Encoder position", Robot.tankDriveSubsystem.getRightPosition());
     }
 
     protected boolean isFinished() 

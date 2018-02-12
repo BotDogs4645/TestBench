@@ -1,9 +1,6 @@
 package org.usfirst.frc.team4645.robot.commands;
 
 import org.usfirst.frc.team4645.robot.Robot;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -13,35 +10,34 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MoveWithEncoders extends Command 
 {
 
-	double distance;
+	double targetDistance;
 	
+	//takes the distance the user wants to move as a parameter
     public MoveWithEncoders(double pDistance) 
     {
     	    requires(Robot.tankDriveSubsystem);
-    	    distance = pDistance;
+    	    targetDistance = pDistance + Robot.tankDriveSubsystem.getRightPosition();
     }
 
-    // Called just before this Command runs the first time
+    //slaves and inverts motors; configures optical encoders; 
     protected void initialize() 
     {
-    		Robot.tankDriveSubsystem.init();
-		
-	
+    		Robot.tankDriveSubsystem.init();		
     }
 
-    // Called repeatedly when this Command is scheduled to run
-    //runs motors and returns encoder values
+    //sets motor speed; displays current encoder position & target distance
     protected void execute() 
     {
-    		Robot.tankDriveSubsystem.driveForward(0.3);
-    	
-    		SmartDashboard.putNumber("encoder position", Robot.tankDriveSubsystem.getLeftPosition());	
+    		Robot.tankDriveSubsystem.driveForward();    	
+    		SmartDashboard.putNumber("encoder position", Robot.tankDriveSubsystem.getRightPosition());
+    		SmartDashboard.putNumber("target distance", targetDistance);
+    		
     }
 
-   
+   //motors stop running when the target position is reached
     protected boolean isFinished() 
     {    
-    		return (Robot.tankDriveSubsystem.getLeftPosition() >= distance);
+    		return (Robot.tankDriveSubsystem.getRightPosition() >= targetDistance);
     		
     }
 

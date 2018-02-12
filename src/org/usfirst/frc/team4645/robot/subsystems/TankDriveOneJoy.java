@@ -2,13 +2,10 @@ package org.usfirst.frc.team4645.robot.subsystems;
 import org.usfirst.frc.team4645.robot.OI;
 import org.usfirst.frc.team4645.robot.RobotMap;
 import org.usfirst.frc.team4645.robot.commands.DriveCommandOneJoy;
-
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,6 +22,8 @@ public class TankDriveOneJoy extends PIDSubsystem
 	public WPI_TalonSRX motorR3 = new WPI_TalonSRX(RobotMap.right3);
 	
 	DifferentialDrive robotDrive = new DifferentialDrive(motorL1, motorR1);
+	
+	private double speed = 0.1;
 	
 	public TankDriveOneJoy()
 	{
@@ -61,12 +60,6 @@ public class TankDriveOneJoy extends PIDSubsystem
 		//selects the optical encoder, sets it as a closed loop, and sets timeout to 10ms
 		motorR1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);	
 		motorL1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10); 		
-		
-		double circumference = 0.3192; //m
-		double pulsesPerRevolution = 400; //counts
-		double countsPerMeter = circumference/ pulsesPerRevolution;	
-		
-
     }
     
   
@@ -96,23 +89,17 @@ public class TankDriveOneJoy extends PIDSubsystem
 		robotDrive.arcadeDrive(forward, turn);		
 	}
     
-	public double getLeftPosition() 
+	public double getRightPosition() 
 	{
-		//System.out.print(motorL1.getSelectedSensorPosition(0));
-		return motorL1.getSelectedSensorPosition(0);	
+		return motorR1.getSelectedSensorPosition(0);	
 	}
 
-	//called in command
-	public void driveForward(double speed)
+	
+	public void driveForward()
 	{
 		motorL1.set(speed);
 		motorR1.set(speed);	
 	}
-	
-	public boolean setDistance(double distance)
-	{
-		return true;
-	}	
 	
     public void stop()
     {
@@ -126,17 +113,18 @@ public class TankDriveOneJoy extends PIDSubsystem
 
 
 	@Override
-	protected double returnPIDInput() {
+	public double returnPIDInput() {
 		// TODO Auto-generated method stub
-		return motorL1.getSelectedSensorPosition(0);
+		return motorR1.getSelectedSensorPosition(0);
 	}
 
 
 	@Override
-	protected void usePIDOutput(double output) {
+	public void usePIDOutput(double output) {
 		// TODO Auto-generated method stub
 		motorL1.pidWrite(output);
 		motorR1.pidWrite(output);
+		SmartDashboard.putNumber("output", output);
 		
 	}
     

@@ -17,13 +17,13 @@ public class OI
 	public static Joystick joystick1 = new Joystick(0);
 	
 	
-	Button encoderButton = new JoystickButton(joystick1, 5);
+	Button encoderButton = new JoystickButton(joystick1, 3);
 	
 	
 	
 	public OI()
 	{
-		encoderButton.whenPressed(new AutonomousTest());
+		encoderButton.whenPressed(new MoveWithEncoders(4000));
 	
 	}
 
