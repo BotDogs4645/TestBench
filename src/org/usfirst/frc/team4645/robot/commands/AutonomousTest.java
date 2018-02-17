@@ -25,6 +25,6 @@ public class AutonomousTest extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    		addSequential(new MoveWithEncoders(400));
+    		//addSequential(new MoveWithEncoders());
     }
 }

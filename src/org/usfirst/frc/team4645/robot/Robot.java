@@ -133,4 +133,9 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 
 	}
+
+	public static Subsystem encoderTest() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

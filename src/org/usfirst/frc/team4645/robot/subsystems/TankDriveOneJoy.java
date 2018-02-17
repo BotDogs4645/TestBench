@@ -1,11 +1,13 @@
 package org.usfirst.frc.team4645.robot.subsystems;
 import org.usfirst.frc.team4645.robot.OI;
+import org.usfirst.frc.team4645.robot.Robot;
 import org.usfirst.frc.team4645.robot.RobotMap;
 import org.usfirst.frc.team4645.robot.commands.DriveCommandOneJoy;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -17,22 +19,30 @@ public class TankDriveOneJoy extends PIDSubsystem
 	public WPI_TalonSRX motorL2 = new WPI_TalonSRX(RobotMap.left2);
 	public  WPI_TalonSRX motorL3 = new WPI_TalonSRX(RobotMap.left3);
 	
+	
+	
 	public WPI_TalonSRX motorR1 = new WPI_TalonSRX(RobotMap.right1);
 	public WPI_TalonSRX motorR2 = new WPI_TalonSRX(RobotMap.right2);
 	public WPI_TalonSRX motorR3 = new WPI_TalonSRX(RobotMap.right3);
 	
 	DifferentialDrive robotDrive = new DifferentialDrive(motorL1, motorR1);
 	
-	private double speed = 0.1;
-	
-	public TankDriveOneJoy()
-	{
-		super("drivetrain", 0.0, 0.0, 0.0);
-		setAbsoluteTolerance(0.05);
-		
-	}
+	//public double moveDistance = 16000;
 
 	
+	//constructor that initializes PID values
+	public TankDriveOneJoy()
+	{
+		super("drivetrain", 0.00040, 0.0000, 0.000);
+		setAbsoluteTolerance(50);
+		
+		//sets absolute error which is considered tolerable
+		getPIDController().setContinuous(false);//sets max & min values as constraints
+		//add right side
+		motorL1.setSensorPhase(true);
+
+		
+	}	
     public void initDefaultCommand() 
     {
 
@@ -41,7 +51,7 @@ public class TankDriveOneJoy extends PIDSubsystem
       
     public void init()
     {
-    	//motors on "middle" gear are slaved and inverted with motor on top gear
+    		//motors on "middle" gear are slaved and inverted with motor on top gear
 		motorL2.follow(motorL1);
 		motorL3.follow(motorL1);
 		motorL2.setInverted(true);
@@ -51,7 +61,16 @@ public class TankDriveOneJoy extends PIDSubsystem
 		motorR2.follow(motorR1);
 		motorR3.follow(motorR1);
 		motorR2.setInverted(true);
-		motorR3.setInverted(true);
+		motorR3.setInverted(true);	
+		
+		//add right side
+		motorL1.configNominalOutputForward(0, 10);
+		motorL1.configNominalOutputReverse(0, 10);
+		motorL1.configPeakOutputForward(0.5, 10);
+		motorL1.configPeakOutputReverse(-0.5, 10);
+		
+		
+		
 		
 		//Sets the period of the given status frame to 1 ms and the timeout value to 10ms 
 		motorR1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);		
@@ -59,8 +78,25 @@ public class TankDriveOneJoy extends PIDSubsystem
 		
 		//selects the optical encoder, sets it as a closed loop, and sets timeout to 10ms
 		motorR1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);	
-		motorL1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10); 		
+		motorL1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10); 	
+		
+		
+		
+		//enable();
+		//setSetpoint(moveDistance);
+		
+		
+		
+
+		
     }
+    
+    /*public void distance()
+    {
+    	SmartDashboard.putNumber("target distance", istance);
+    	
+    	
+    }*/
     
   
     
@@ -72,61 +108,79 @@ public class TankDriveOneJoy extends PIDSubsystem
 		/* deadband */
 		if (Math.abs(forward) < 0.10) 
 		{
+			
 			/* within 10% joystick, make it zero */
 			forward = 0;
+			
 		}
 		
 		if (Math.abs(turn) < 0.10) 
 		{
+			
 			/* within 10% joystick, make it zero */
 			turn = 0;
+			
 		}
 		
 
 		SmartDashboard.putNumber("JoyY:",  forward);
 		SmartDashboard.putNumber("Turn", turn);
 
-		robotDrive.arcadeDrive(forward, turn);		
+		robotDrive.arcadeDrive(forward, turn);
+		SmartDashboard.putNumber("Left Sensor Velocity(joystick command)", Robot.tankDriveSubsystem.motorL1.getSelectedSensorVelocity(0));
 	}
     
-	public double getRightPosition() 
+	public double getLeftPosition() 
 	{
-		return motorR1.getSelectedSensorPosition(0);	
+		return motorL1.getSelectedSensorPosition(0);	
 	}
 
 	
-	public void driveForward()
+	/*public void driveForward()
 	{
 		motorL1.set(speed);
 		motorR1.set(speed);	
-	}
+	}*/
 	
     public void stop()
     {
 		motorL1.set(0);
 		motorR1.set(0);
+		//disable();
 	}
     
-	public void setMotorSpeeds()
-	{	
-	}
-
-
-	@Override
-	public double returnPIDInput() {
-		// TODO Auto-generated method stub
-		return motorR1.getSelectedSensorPosition(0);
-	}
-
+    public void setEncoderPosition(int pos) 
+    {
+    		motorL1.setSelectedSensorPosition(pos, 0, 0);
+    		motorR1.setSelectedSensorPosition(pos, 0, 0);
+    }
 
 	@Override
-	public void usePIDOutput(double output) {
+	protected double returnPIDInput() 
+	{
 		// TODO Auto-generated method stub
-		motorL1.pidWrite(output);
-		motorR1.pidWrite(output);
-		SmartDashboard.putNumber("output", output);
+		//returns encoder position
+		SmartDashboard.putNumber("PID input", motorL1.getSelectedSensorPosition(0));
+		
+		return motorL1.getSelectedSensorPosition(0);
 		
 	}
+
+	@Override
+	protected void usePIDOutput(double output) 
+	{
+		//if (getPIDController().isEnable())
+		// TODO Auto-generated method stub
+			motorL1.pidWrite(output);
+			motorR1.pidWrite(output);
+			SmartDashboard.putNumber("PID output", output);
+			
+		
+	}
+    
+
+
+
     
 	
     

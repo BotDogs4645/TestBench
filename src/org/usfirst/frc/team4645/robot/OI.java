@@ -23,7 +23,8 @@ public class OI
 	
 	public OI()
 	{
-		encoderButton.whenPressed(new MoveWithEncoders(4000));
+		System.out.println("test");
+		encoderButton.whenPressed(new MoveWithEncoders(10000));
 	
 	}
 

@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4645.robot.commands;
 
 import org.usfirst.frc.team4645.robot.Robot;
+
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -9,41 +11,58 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class MoveWithEncoders extends Command 
 {
-
+	public PIDController drivePID;
+	double distance;
 	double targetDistance;
+
 	
 	//takes the distance the user wants to move as a parameter
-    public MoveWithEncoders(double pDistance) 
+    public MoveWithEncoders(double distance) 
     {
+    	
     	    requires(Robot.tankDriveSubsystem);
-    	    targetDistance = pDistance + Robot.tankDriveSubsystem.getRightPosition();
+    	    drivePID = Robot.tankDriveSubsystem.getPIDController();
+    	    this.distance = distance;
+    	    
     }
 
     //slaves and inverts motors; configures optical encoders; 
     protected void initialize() 
     {
-    		Robot.tankDriveSubsystem.init();		
+    		Robot.tankDriveSubsystem.init();
+    		Robot.tankDriveSubsystem.setEncoderPosition(0);
+    		targetDistance = distance; 
+    		drivePID.setSetpoint(targetDistance);
+    		SmartDashboard.putNumber("target distance", targetDistance);
+    		drivePID.enable();
+    		
+
     }
 
     //sets motor speed; displays current encoder position & target distance
     protected void execute() 
     {
-    		Robot.tankDriveSubsystem.driveForward();    	
-    		SmartDashboard.putNumber("encoder position", Robot.tankDriveSubsystem.getRightPosition());
-    		SmartDashboard.putNumber("target distance", targetDistance);
-    		
+   
+    	SmartDashboard.putString("MoveWithEncoder", "execute");
+    	SmartDashboard.putNumber("Velocity", Robot.tankDriveSubsystem.motorL1.getSelectedSensorVelocity(0));
+    	
     }
 
    //motors stop running when the target position is reached
     protected boolean isFinished() 
     {    
-    		return (Robot.tankDriveSubsystem.getRightPosition() >= targetDistance);
+    		
+    		return drivePID.onTarget();//(Robot.tankDriveSubsystem.getRightPosition() >= moveDistance);
     		
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	
+    		drivePID.disable();
     		Robot.tankDriveSubsystem.stop();
+    		SmartDashboard.putString("MoveWithEncoder", "end");
+    		
     }
 
     // Called when another command which requires one or more of the same
