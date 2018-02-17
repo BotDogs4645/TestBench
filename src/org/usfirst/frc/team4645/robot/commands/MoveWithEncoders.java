@@ -13,7 +13,7 @@ public class MoveWithEncoders extends Command
 {
 	public PIDController drivePID;
 	double distance;
-	double targetDistance;
+	//double targetDistance;
 
 	
 	//takes the distance the user wants to move as a parameter
@@ -22,7 +22,7 @@ public class MoveWithEncoders extends Command
     	
     	    requires(Robot.tankDriveSubsystem);
     	    drivePID = Robot.tankDriveSubsystem.getPIDController();
-    	    this.distance = distance;
+    	    this.distance = distance * -1;
     	    
     }
 
@@ -31,9 +31,9 @@ public class MoveWithEncoders extends Command
     {
     		Robot.tankDriveSubsystem.init();
     		Robot.tankDriveSubsystem.setEncoderPosition(0);
-    		targetDistance = distance; 
-    		drivePID.setSetpoint(targetDistance);
-    		SmartDashboard.putNumber("target distance", targetDistance);
+    		
+    		drivePID.setSetpoint(distance);
+    		SmartDashboard.putNumber("target distances", distance);
     		drivePID.enable();
     		
 

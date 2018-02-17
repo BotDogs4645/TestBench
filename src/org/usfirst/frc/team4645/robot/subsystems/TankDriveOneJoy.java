@@ -34,7 +34,7 @@ public class TankDriveOneJoy extends PIDSubsystem
 	public TankDriveOneJoy()
 	{
 		super("drivetrain", 0.00040, 0.0000, 0.000);
-		setAbsoluteTolerance(50);
+		setAbsoluteTolerance(100);
 		
 		//sets absolute error which is considered tolerable
 		getPIDController().setContinuous(false);//sets max & min values as constraints

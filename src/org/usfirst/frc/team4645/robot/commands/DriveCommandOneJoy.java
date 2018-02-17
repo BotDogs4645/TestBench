@@ -25,7 +25,7 @@ public class DriveCommandOneJoy extends Command
     		//SmartDashboard.putNumber("encoder position", Robot.tankDriveSubsystem.getLeftPosition());
     		
     		//SmartDashboard.putNumber("Encoder position (joystick command)", Robot.tankDriveSubsystem.getLeftPosition());
-    		SmartDashboard.getBoolean("is finished", Robot.tankDriveSubsystem.getPIDController().onTarget());
+    		//SmartDashboard.getBoolean("is finished", Robot.tankDriveSubsystem.getPIDController().onTarget());
     }
 
     protected boolean isFinished() 
