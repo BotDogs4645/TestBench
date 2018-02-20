@@ -33,13 +33,13 @@ public class TankDriveOneJoy extends PIDSubsystem
 	//constructor that initializes PID values
 	public TankDriveOneJoy()
 	{
-		super("drivetrain", 0.00040, 0.0000, 0.000);
+		super("drivetrain", 0.00040, 0.00, 0.000);//0.004 worked for awhile
 		setAbsoluteTolerance(100);
 		
 		//sets absolute error which is considered tolerable
-		getPIDController().setContinuous(false);//sets max & min values as constraints
+		getPIDController().setContinuous(false);//sets max & min values as constraints ALWAYS SET AS FALSE
 		//add right side
-		motorL1.setSensorPhase(true);
+		motorL1.setSensorPhase(false);
 
 		
 	}	
@@ -72,7 +72,7 @@ public class TankDriveOneJoy extends PIDSubsystem
 		
 		
 		
-		//Sets the period of the given status frame to 1 ms and the timeout value to 10ms 
+		//Sets the period of the given status frame(20ms) to 1 ms and the timeout value to 10ms 
 		motorR1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);		
 		motorL1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
 		
@@ -102,38 +102,45 @@ public class TankDriveOneJoy extends PIDSubsystem
     
     public void driveWithJoystick()
     {
-		double forward = OI.joystick1.getY();
-		double turn = OI.joystick1.getZ();
+		double forward = (OI.joystick1.getY());
+		double turn = (OI.joystick1.getZ());
 
 		/* deadband */
-		if (Math.abs(forward) < 0.10) 
+		
+		if ((Math.abs(forward) < 0.50) && (Math.abs(turn) < 0.70)) 
 		{
-			
+			SmartDashboard.putNumber("Motor power w/ joystick", motorL1.get());
 			/* within 10% joystick, make it zero */
-			forward = 0;
+			stop();
+		
 			
 		}
 		
-		if (Math.abs(turn) < 0.10) 
+		
+		else 
 		{
-			
-			/* within 10% joystick, make it zero */
-			turn = 0;
-			
+			SmartDashboard.putNumber("JoyY:",  forward);
+			SmartDashboard.putNumber("Turn", turn);
+			SmartDashboard.putNumber("Motor power w/ joystick", motorL1.get());
+
+			robotDrive.arcadeDrive(forward, turn);
+			SmartDashboard.putNumber("Left Sensor Velocity(joystick command)", getLeftVelocity() );
 		}
 		
 
-		SmartDashboard.putNumber("JoyY:",  forward);
-		SmartDashboard.putNumber("Turn", turn);
 
-		robotDrive.arcadeDrive(forward, turn);
-		SmartDashboard.putNumber("Left Sensor Velocity(joystick command)", Robot.tankDriveSubsystem.motorL1.getSelectedSensorVelocity(0));
 	}
     
 	public double getLeftPosition() 
 	{
 		return motorL1.getSelectedSensorPosition(0);	
 	}
+	
+	public double getLeftVelocity() 
+	{
+		return motorL1.getSelectedSensorVelocity(0);	
+	}	
+	
 
 	
 	/*public void driveForward()

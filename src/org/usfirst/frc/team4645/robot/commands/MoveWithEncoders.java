@@ -44,7 +44,7 @@ public class MoveWithEncoders extends Command
     {
    
     	SmartDashboard.putString("MoveWithEncoder", "execute");
-    	SmartDashboard.putNumber("Velocity", Robot.tankDriveSubsystem.motorL1.getSelectedSensorVelocity(0));
+    	SmartDashboard.putNumber("Velocity", Robot.tankDriveSubsystem.getLeftVelocity());
     	
     }
 
@@ -59,7 +59,7 @@ public class MoveWithEncoders extends Command
     // Called once after isFinished returns true
     protected void end() {
     	
-    		drivePID.disable();
+    		drivePID.reset();
     		Robot.tankDriveSubsystem.stop();
     		SmartDashboard.putString("MoveWithEncoder", "end");
     		
