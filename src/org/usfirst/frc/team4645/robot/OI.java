@@ -24,8 +24,7 @@ public class OI
 	public OI()
 	{
 		System.out.println("test");
-		encoderButton.whenPressed(new MoveWithEncoders(10000));
-	
+		encoderButton.whenPressed(new MoveWithEncoders(36));//in inches
 	}
 
 }

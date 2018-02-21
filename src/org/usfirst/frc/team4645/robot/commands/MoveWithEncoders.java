@@ -22,7 +22,7 @@ public class MoveWithEncoders extends Command
     	
     	    requires(Robot.tankDriveSubsystem);
     	    drivePID = Robot.tankDriveSubsystem.getPIDController();
-    	    this.distance = distance * -1;
+    	    this.distance = distance * 72 ; //there are 72 counts per inch
     	    
     }
 
@@ -33,7 +33,7 @@ public class MoveWithEncoders extends Command
     		Robot.tankDriveSubsystem.setEncoderPosition(0);
     		
     		drivePID.setSetpoint(distance);
-    		SmartDashboard.putNumber("target distances", distance);
+    		SmartDashboard.putNumber("target distance", distance);
     		drivePID.enable();
     		
 
@@ -59,7 +59,7 @@ public class MoveWithEncoders extends Command
     // Called once after isFinished returns true
     protected void end() {
     	
-    		drivePID.reset();
+    		drivePID.disable();
     		Robot.tankDriveSubsystem.stop();
     		SmartDashboard.putString("MoveWithEncoder", "end");
     		

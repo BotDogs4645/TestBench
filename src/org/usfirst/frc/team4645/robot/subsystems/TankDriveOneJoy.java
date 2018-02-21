@@ -33,13 +33,13 @@ public class TankDriveOneJoy extends PIDSubsystem
 	//constructor that initializes PID values
 	public TankDriveOneJoy()
 	{
-		super("drivetrain", 0.00040, 0.00, 0.000);//0.004 worked for awhile
+		super("drivetrain", 0.04, 00.1, 0.000);//0.004 worked for awhile
 		setAbsoluteTolerance(100);
 		
 		//sets absolute error which is considered tolerable
 		getPIDController().setContinuous(false);//sets max & min values as constraints ALWAYS SET AS FALSE
 		//add right side
-		motorL1.setSensorPhase(false);
+		motorL1.setSensorPhase(true);//
 
 		
 	}	
@@ -51,6 +51,7 @@ public class TankDriveOneJoy extends PIDSubsystem
       
     public void init()
     {
+    		setOutputRange(-0.2, 0.2);
     		//motors on "middle" gear are slaved and inverted with motor on top gear
 		motorL2.follow(motorL1);
 		motorL3.follow(motorL1);
@@ -64,10 +65,7 @@ public class TankDriveOneJoy extends PIDSubsystem
 		motorR3.setInverted(true);	
 		
 		//add right side
-		motorL1.configNominalOutputForward(0, 10);
-		motorL1.configNominalOutputReverse(0, 10);
-		motorL1.configPeakOutputForward(0.5, 10);
-		motorL1.configPeakOutputReverse(-0.5, 10);
+		
 		
 		
 		
@@ -79,6 +77,13 @@ public class TankDriveOneJoy extends PIDSubsystem
 		//selects the optical encoder, sets it as a closed loop, and sets timeout to 10ms
 		motorR1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);	
 		motorL1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10); 	
+		
+		/*motorL1.configNominalOutputForward(0, 10);
+		motorL1.configNominalOutputReverse(0, 10);
+		motorL1.configPeakOutputForward(0.5, 10);
+		motorL1.configPeakOutputReverse(-0.5, 10);
+		motorL1.configNeutralDeadband(0.25, );*/
+		
 		
 		
 		
@@ -93,7 +98,7 @@ public class TankDriveOneJoy extends PIDSubsystem
     
     /*public void distance()
     {
-    	SmartDashboard.putNumber("target distance", istance);
+    	SmartDashboard.putNumber("target distance", distance);
     	
     	
     }*/
@@ -178,9 +183,13 @@ public class TankDriveOneJoy extends PIDSubsystem
 	{
 		//if (getPIDController().isEnable())
 		// TODO Auto-generated method stub
+			
 			motorL1.pidWrite(output);
 			motorR1.pidWrite(output);
 			SmartDashboard.putNumber("PID output", output);
+			
+			SmartDashboard.putNumber("Motor output", motorL1.get());
+			
 			
 		
 	}
